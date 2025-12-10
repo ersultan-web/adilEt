@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food App UI</title>
+    <style>
+        .hide-scroll::-webkit-scrollbar {
+            height: 0;
+            /* высота самого скролла */
+        }
+
+        .hide-scroll::-webkit-scrollbar-track {
+            background: transparent !important;
+            /* убираем серый фон */
+        }
+
+        .hide-scroll::-webkit-scrollbar-thumb {
+            background: transparent !important;
+            /* убираем сам ползунок */
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="w-[90%] m-auto h-[100px] flex items-center">
+        <div class="w-[50%] h-full flex items-center gap-3">
+            <!-- Лого -->
+            <img src="img/WhatsApp_Image_2025-12-06_at_09.56.03-removebg-preview.png" class="w-[60px] object-cover"
+                alt="" loading="lazy">
+            <!-- Название -->
+            <div>
+                <h1 class="font-bold">adil_meat</h1>
+                <p class="text-gray-400 text-xs font-semibold">Все цены здесь</p>
+            </div>
+        </div>
+        <div class="w-[50%] h-full flex flex-col items-end justify-center relative">
+            <!-- Заголовок -->
+            <h2 class="font-bold text-ms mb-0">Связаться онлайн</h2>
+
+            <!-- Кнопка номера -->
+            <button id="Contact" class="font-semibold text-sm m-0  flex items-center gap-1 rounded hover: transition">
+                +7-771-159-2023
+                <ion-icon name="chevron-down-outline" id="contactIcon"></ion-icon>
+            </button>
+
+            <!-- Скрытые кнопки -->
+            <div id="contactOptions"
+                class="absolute w-[80%] h-[100px] bottom-[-100px] flex flex-col justify-center gap-3 shadow-2xl py-3 px-3 rounded-xl bg-white transition-all duration-500 overflow-hidden z-50">
+                <a href="tel:+77711592023" class="block">
+                    <div class="flex items-center gap-3">
+                        <ion-icon name="call" class="w-[20px] h-[20px] text-green-600"></ion-icon>
+                        <h3>Телефон</h3>
+                    </div>
+                </a>
+                <a href="https://wa.me/77711592023" target="_blank" class="block">
+                    <div class="flex items-center gap-3">
+                        <ion-icon name="logo-whatsapp" class="w-[25px] h-[25px] text-green-600"></ion-icon>
+                        <h3>Whatsapp</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="my-7">
+        <form action="" class="w-[90%] flex items-center m-auto relative">
+            <ion-icon name="search-outline" class="z-20 pl-3 text-gray-500  w-[20px] h-[20px]"></ion-icon>
+            <input type="text"
+                class="w-full h-full pl-10 py-6 rounded-lg bg-gray-200 absolute  placeholder:text-black text-sm font-semibold "
+                placeholder="Поиск товаров">
+        </form>
+    </section>
+
+    <!-- Категории -->
+    <section class="w-[90%] m-auto flex flex-col mb-4">
+        <h1 class="text-xl font-semibold">Все Категории</h1>
+        <div class="w-full overflow-x-auto flex gap-4 py-4 px-3 scroll-smooth snap-x snap-mandatory hide-scroll">
+
+            <div class="min-w-[150px] min-h-[45px] flex items-center gap-2 rounded-full shadow-md snap-start bg-white">
+                <div
+                    class="w-[45px] h-[45px] rounded-full m-1 shadow-md overflow-hidden flex items-center justify-center ">
+                    <img src="img/meat (1).png" alt="" class="w-[90%] h-[90%] object-cover ">
+                </div>
+                <h3>Говядина</h3>
+            </div>
+
+            <div class="min-w-[150px] min-h-[45px] flex items-center gap-2 rounded-full shadow-md snap-start bg-white">
+                <div
+                    class="w-[45px] h-[45px] rounded-full m-1 shadow-md overflow-hidden flex items-center justify-center">
+                    <img src="img/lamb (1).png" alt="" class="w-[90%] h-[90%] object-cover">
+                </div>
+                <h3>Баранина</h3>
+            </div>
+
+            <div class="min-w-[150px] min-h-[45px] flex items-center gap-2 rounded-full shadow-md snap-start bg-white">
+                <div
+                    class="w-[45px] h-[45px] rounded-full m-1 shadow-md overflow-hidden flex items-center justify-center">
+                    <img src="img/chicken.png" alt="" class="w-[90%] h-[90%] object-cover">
+                </div>
+                <h3>Курица</h3>
+            </div>
+
+            <div class="min-w-[150px] min-h-[45px] flex items-center gap-2 rounded-full shadow-md snap-start bg-white">
+                <div class="w-[45px] h-[45px] rounded-full m-1 shadow-md flex items-center justify-center">
+                    <img src="img/256x256.jpg" alt="" class="w-[90%] h-[90%] object-contain">
+                </div>
+                <h3>Конина</h3>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Популярные -->
+    <section class="w-[90%] m-auto flex flex-col">
+        <h1 class="text-xl font-semibold">Популярные товары</h1>
+        <div class="w-full flex items-center justify-center gap-4 flex-wrap mt-16" id="card">
+
+        </div>
+    </section>
+
+    <!-- Подробности -->
+    <!-- <section class="w-full h-[60%] fixed bottom-0 rounded-t-2xl bg-white z-50 hidden modal"
+        style="box-shadow:0 -4px 10px rgba(0,0,0,0.3)">
+
+        <div class="relative w-full h-full">
+
+            <div class="w-[90%] h-full m-auto flex flex-col gap-5 z-50">
+                <img src="" alt="" class="w-full h-[60%] object-contain absolute bottom-[19rem] modal-img">
+
+                <div class="flex flex-col w-full mt-20">
+                    <h1 class="text-4xl font-bold modal-title"></h1>
+                    <div class="flex items-center gap-2">
+                        <img src="img/meat (1).png" alt="" class="w-[30px] h-[30px]">
+                        <p class="text-gray-400 font-semibold modal-category"></p>
+                    </div>
+                </div>
+
+                <p class="font-semibold text-gray-500 modal-desc"></p>
+
+                <p class="font-bold text-3xl modal-price"></p>
+
+            </div>
+
+            <div class="w-full flex items-center absolute bottom-0">
+                <button class="w-[50%] py-7 bg-green-400 flex items-center justify-center gap-2">
+                    <ion-icon name="call" class="w-[20px] h-[20px] text-green-600"></ion-icon>
+                    <h3>Телефон</h3>
+                </button>
+                <button class="w-[50%] py-7 bg-green-200 flex items-center justify-center gap-2">
+                    <ion-icon name="logo-whatsapp" class="w-[25px] h-[25px] text-green-600"></ion-icon>
+                    <h3>Whatsapp</h3>
+                </button>
+            </div>
+
+        </div>
+    </section> -->
+
+    <!-- <div id="overlay" class="fixed inset-0 bg-black/40  z-40"></div> -->
+
+    <div id="sheet" class="fixed bottom-0 transition-all ease-in-out duration-300 m-auto left-0 right-0 transform opacity-0 pointer-events-none hidden translate-y-[600px] bg-white rounded-2xl z-50 modal">
+
+        <!-- Handle -->
+        <ion-icon name="close-outline" id="close" class="px-5 w-[30px] h-[30px] pt-2"></ion-icon>
+
+        <img src="img/rebra.png" alt="" class="w-full h-[190px] object-contain modal-img">
+
+        <!-- Контент -->
+        <div class="px-5 pb-6 flex flex-col gap-3 ">
+
+            <div>
+                <h2 class="text-2xl font-bold modal-title ">Рёбра говяжьи</h2>
+                <p class="font-semibold text-gray-500 modal-desc">
+                    Сочная говяжья грудинка, идеально подходит для тушения и запекания.
+                </p>
+            </div>
+
+            <!-- Цена -->
+            <p class="text-2xl font-bold mt-1 modal-price">
+                4000 ₸ <span class="text-base font-medium text-gray-500">/ кг</span>
+            </p>
+
+            <!-- Кнопки -->
+            <div>
+                <a id="WhatsApp"
+                    class="block text-center mt-5 py-4 bg-green-500 text-white rounded-xl font-semibold">
+                    Заказать в WhatsApp
+                </a>
+
+                <a href="tel:+77711592023" class="block text-center mt-3 py-4 bg-gray-100 rounded-xl font-semibold">
+                    Позвонить
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <script src="index.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>
