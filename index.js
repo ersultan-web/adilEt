@@ -11,100 +11,6 @@ contactBtn.addEventListener('click', () => {
 });
 
 
-
-// let obj = [
-//     {
-//         id: 1,
-//         img:'img/Grudinka.jpg',
-//         name: 'Грудинка',
-//         price:  4000,
-//         cotegory: 'Говядина',
-//         inStock: true,
-//         description: 'Сочная говяжья грудинка, идеально подходит для тушения и запекания.'
-//     },
-//     {
-//         id: 2,
-//         img:'img/Osobuka.jpg',
-//         name: 'Оссобука',
-//         price:  4000,
-//         cotegory: 'Говядина',
-//         inStock: true,
-//         description: 'Нежная оссобука с тонким мясным вкусом, прекрасно подходит для стейков и жарки.'
-//     },
-//     {
-//         id: 3,
-//         img:'img/Fileika.jpg',
-//         name: 'Филейка',
-//         price:  4300,
-//         cotegory: 'Говядина',
-//         inStock: true,
-//         description: 'Высококачественная говяжья филеика — мягкое мясо для изысканных блюд.'
-//     },
-//     {
-//         id: 4,
-//         img:'img/sheika.jpg',
-//         name: 'Шейка',
-//         price:  4300,
-//         cotegory: 'Говядина',
-//         inStock: true,
-//         description: 'Говяжья шейка с мраморной текстурой, отлично подходит для жарки и тушения.'
-//     },
-//     {
-//         id: 5,
-//         img:'img/rebra.jpg',
-//         name: 'Ребра',
-//         price:  4000,
-//         cotegory: 'Говядина',
-//         inStock: true,
-//         description: 'Сочные говяжьи ребра, идеальные для запекания на гриле или в духовке.'
-//     },
-//     {
-//         id: 6,
-//         img:'img/antrekot.jpg',
-//         name: 'Антрекот',
-//         price:  4300,
-//         cotegory: 'Говядина',
-//         inStock: true,
-//         description: 'Классический говяжий антрекот с насыщенным вкусом и мягкой текстурой.'
-//     },
-//     {
-//         id: 7,
-//         img:'img/lopatka.jpg',
-//         name: 'Лопатка',
-//         price:  4300,
-//         cotegory: 'Говядина',
-//         inStock: true,
-//         description: 'Говяжья лопатка для медленного тушения и приготовления ароматных рагу.'
-//     },
-//     {
-//         id: 8,
-//         img:'img/myakot.jpg',
-//         name: 'Мякоть',
-//         price:  5300,
-//         cotegory: 'Говядина',
-//         inStock: true,
-//         description: 'Нежная говяжья мякоть премиум-класса, подходит для стейков и жарки.'
-//     },
-//     {
-//         id: 9,
-//         img:'img/pharsh.jpg',
-//         name: 'Фарш',
-//         price:  4400,
-//         cotegory: 'Говядина',
-//         inStock: true,
-//         description: 'Свежий говяжий фарш для котлет, тефтелей и разнообразных блюд.'
-//     },
-//     {
-//         id: 10,
-//         img:'img/pharsh15%.jpg',
-//         name: 'Фарш 15%',
-//         price:  4000,
-//         cotegory: 'Говядина',
-//         inStock: true,
-//         description: 'Фарш с 15% жира, идеально подходит для сочных котлет и бургеров.'
-//     },
-// ];
-
 async function GetInfo() {
     try {
         const getinfo = await fetch('https://675975aa099e3090dbe1bcc7.mockapi.io/api')
@@ -175,26 +81,32 @@ formInput.addEventListener('submit', (e) => {
 
 // Search
 let search = document.querySelector("#search")
-
+let cotegoryName = 'все'
 search.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === 'Search') {
-    e.preventDefault();
-    search.blur();
-}
+        e.preventDefault();
+        search.blur();
+    }
 })
 async function init() {
     const ini = await GetInfo();
     if (!ini) return;
+
     ini.forEach(element => {
         createProductCard(element);
     })
+
     search.addEventListener('input', (e) => {
         container.innerHTML = ''
         e.target.value === '' ?
             ini.forEach(element => {
                 createProductCard(element);
             }) : ini
-                .filter(element => element.name.replace(/\s+/g, '').toLowerCase().includes(e.target.value.replace(/\s+/g, '').toLowerCase()))
+                .filter(element => {
+                    let search = element.name.replace(/\s+/g, '').toLowerCase().includes(e.target.value.replace(/\s+/g, '').toLowerCase())
+                    let cotegory = cotegoryName === 'все' || element.cotegory.toLowerCase() === cotegoryName
+                    return search && cotegory
+                })
                 .forEach(element => {
                     createProductCard(element)
                 })
@@ -301,19 +213,21 @@ const categories = [
 
 let cotegor = document.querySelector('#cotegory')
 async function clickCotegory(name) {
+
     const getInfo = await GetInfo();
     if (!getInfo) return;
 
+    let query = search.value.replace(/\s+/g, '').toLowerCase()
+    cotegoryName = name.toLowerCase()
     container.innerHTML = "";
 
-    let info;
-    if (name === "все") {
-        info = getInfo;
-    } else {
-        info = getInfo.filter(i => i.cotegory.toLowerCase() === name);
-    }
-
-    info.forEach(product => createProductCard(product));
+    getInfo.filter(element => {
+            let search = element.name.replace(/\s+/g, '').toLowerCase().includes(query)
+            let cotegory = cotegoryName === 'все' || element.cotegory.toLowerCase() === cotegoryName
+            return search && cotegory
+        }).forEach(element => {
+            createProductCard(element)
+        })
 }
 
 
