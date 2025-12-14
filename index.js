@@ -1,34 +1,16 @@
 const contactBtn = document.getElementById('Contact');
 const options = document.getElementById('contactOptions');
 const icon = document.getElementById('contactIcon')
-// Изначально скрыт
-options.style.opacity = "0";
-options.style.bottom = "0px";
-options.style.pointerEvents = "none";
 
 contactBtn.addEventListener('click', () => {
-    if (options.style.opacity === "0") {
-        
-        options.style.opacity = "1";
-        options.style.bottom = "-100px";
-        options.style.pointerEvents = "auto";
-        icon.name = 'chevron-up-outline'
-    } else {
-
-        options.style.opacity = "0";
-        options.style.bottom = "0px";
-        options.style.pointerEvents = "none";
-        icon.name = 'chevron-down-outline'
-    }
+    options.classList.toggle('opacity-0');
+    options.classList.toggle('bottom-[0px]');
+    options.classList.toggle('pointer-events-none');
+    options.classList.add('bottom-[-100px]')
+    icon.name = options.classList.contains('opacity-0') ? 'chevron-down-outline' : 'chevron-up-outline';
 });
 
-document.addEventListener('click', (e) => {
-    if (!options.contains(e.target) && e.target !== contactBtn) {
-        options.style.opacity = "0";
-        options.style.bottom = "0px";
-        options.style.pointerEvents = "none";
-    }
-})
+
 
 // let obj = [
 //     {
