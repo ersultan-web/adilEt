@@ -8,7 +8,7 @@ options.style.pointerEvents = "none";
 
 contactBtn.addEventListener('click', () => {
     if (options.style.opacity === "0") {
-
+        
         options.style.opacity = "1";
         options.style.bottom = "-100px";
         options.style.pointerEvents = "auto";
