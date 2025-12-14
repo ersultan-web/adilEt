@@ -167,7 +167,7 @@ function createProductCard(data) {
     container.appendChild(card);
 }
 let formInput = document.querySelector('#formInput')
-formInput.addEventListener('submit', (e) => {
+formInput.addEventListener('keydown', (e) => {
     if(e.key === 'Enter'){
         e.preventDefault()
         formInput.blur()
