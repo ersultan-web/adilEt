@@ -164,12 +164,11 @@ function createProductCard(data) {
     })
     container.appendChild(card);
 }
-let search = document.querySelector("#search")
-const getSearch = search.addEventListener('input', (e) => {
-    console.log(e.target.value);
-
+let formInput = document.querySelector('#formInput')
+formInput.addEventListener('submit', (e) => {
+    e.preventDefault()
 })
-
+let search = document.querySelector("#search")
 async function init() {
     const ini = await GetInfo();
     if (!ini) return;
