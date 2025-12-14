@@ -168,11 +168,13 @@ function createProductCard(data) {
 }
 let formInput = document.querySelector('#formInput')
 formInput.addEventListener('keydown', (e) => {
-    if(e.key === 'Enter'){
+    if (e.key === 'Enter') {
         e.preventDefault()
-        formInput.blur()
+        setTimeout(() => {
+            searchInput.blur();
+        }, 50);
     }
-    
+
 })
 
 
@@ -191,10 +193,10 @@ async function init() {
             ini.forEach(element => {
                 createProductCard(element);
             }) : ini
-            .filter(element => element.name.replace(/\s+/g, '').toLowerCase().includes(e.target.value.replace(/\s+/g, '').toLowerCase()))
-            .forEach(element => {
-                createProductCard(element)
-            })
+                .filter(element => element.name.replace(/\s+/g, '').toLowerCase().includes(e.target.value.replace(/\s+/g, '').toLowerCase()))
+                .forEach(element => {
+                    createProductCard(element)
+                })
     })
 
 }
