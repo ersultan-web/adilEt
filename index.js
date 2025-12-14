@@ -120,6 +120,8 @@ async function GetInfo() {
 
 const container = document.getElementById('card'); // элемент-контейнер
 
+
+// Form input
 function createProductCard(data) {
     // Создаём контейнер карточки
     const card = document.createElement('div');
@@ -166,8 +168,16 @@ function createProductCard(data) {
 }
 let formInput = document.querySelector('#formInput')
 formInput.addEventListener('submit', (e) => {
-    e.preventDefault()
+    if(e.key === 'Enter'){
+        e.preventDefault()
+        formInput.blur()
+    }
+    
 })
+
+
+
+// Search
 let search = document.querySelector("#search")
 async function init() {
     const ini = await GetInfo();
