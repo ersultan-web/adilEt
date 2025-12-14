@@ -167,17 +167,21 @@ function createProductCard(data) {
     container.appendChild(card);
 }
 let formInput = document.querySelector('#formInput')
-formInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === 'Search') {
+formInput.addEventListener('submit', (e) => {
     e.preventDefault();
-    searchInput.blur();
-}
 })
 
 
 
 // Search
 let search = document.querySelector("#search")
+
+search.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === 'Search') {
+    e.preventDefault();
+    search.blur();
+}
+})
 async function init() {
     const ini = await GetInfo();
     if (!ini) return;
