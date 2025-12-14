@@ -200,7 +200,7 @@ async function init() {
             ini.forEach(element => {
                 createProductCard(element);
             }) : ini
-            .filter(element => element.name.replace(/\s+/g, '').toLowerCase().includes(e.target.value))
+            .filter(element => element.name.replace(/\s+/g, '').toLowerCase().includes(e.target.value.toLowerCase()))
             .forEach(element => {
                 createProductCard(element)
             })
