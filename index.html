@@ -9,17 +9,14 @@
     <style>
         .hide-scroll::-webkit-scrollbar {
             height: 0;
-            /* высота самого скролла */
         }
 
         .hide-scroll::-webkit-scrollbar-track {
             background: transparent !important;
-            /* убираем серый фон */
         }
 
         .hide-scroll::-webkit-scrollbar-thumb {
             background: transparent !important;
-            /* убираем сам ползунок */
             border: none;
         }
     </style>
@@ -37,12 +34,13 @@
                 <p class="text-gray-400 text-xs font-semibold">Все цены здесь</p>
             </div>
         </div>
-        <div class="w-[50%] h-full flex flex-col items-end justify-center relative">
+        <div class="w-[50%] h-full flex flex-col items-end justify-center relative ">
             <!-- Заголовок -->
             <h2 class="font-bold text-ms mb-0">Связаться онлайн</h2>
 
             <!-- Кнопка номера -->
-            <button id="Contact" class="font-semibold text-sm m-0  flex items-center gap-1 rounded hover: transition">
+            <button id="Contact" class="font-semibold text-sm m-0  flex items-center gap-1 rounded transition duration-100 
+            ease-out">
                 +7-771-159-2023
                 <ion-icon name="chevron-down-outline" id="contactIcon"></ion-icon>
             </button>
@@ -66,50 +64,21 @@
         </div>
     </header>
 
-    <section class="my-7">
-        <form action="" class="w-[90%] flex items-center m-auto relative">
+    <section class="my-7 sticky z-40 top-4">
+        <form action="" class="w-[90%] flex items-center m-auto relative ">
             <ion-icon name="search-outline" class="z-20 pl-3 text-gray-500  w-[20px] h-[20px]"></ion-icon>
-            <input type="text"
+            <input type="text" id="search"
                 class="w-full h-full pl-10 py-6 rounded-lg bg-gray-200 absolute  placeholder:text-black text-sm font-semibold "
                 placeholder="Поиск товаров">
         </form>
     </section>
 
     <!-- Категории -->
-    <section class="w-[90%] m-auto flex flex-col mb-4">
+    <section class="w-[90%] m-auto flex flex-col mb-4 sticky top-13 z-40 bg-white">
         <h1 class="text-xl font-semibold">Все Категории</h1>
-        <div class="w-full overflow-x-auto flex gap-4 py-4 px-3 scroll-smooth snap-x snap-mandatory hide-scroll">
+        <div id="cotegory" class="w-full overflow-x-auto flex gap-4 py-4 px-3 scroll-smooth snap-x snap-mandatory hide-scroll ">
 
-            <div class="min-w-[150px] min-h-[45px] flex items-center gap-2 rounded-full shadow-md snap-start bg-white">
-                <div
-                    class="w-[45px] h-[45px] rounded-full m-1 shadow-md overflow-hidden flex items-center justify-center ">
-                    <img src="img/meat (1).png" alt="" class="w-[90%] h-[90%] object-cover ">
-                </div>
-                <h3>Говядина</h3>
-            </div>
-
-            <div class="min-w-[150px] min-h-[45px] flex items-center gap-2 rounded-full shadow-md snap-start bg-white">
-                <div
-                    class="w-[45px] h-[45px] rounded-full m-1 shadow-md overflow-hidden flex items-center justify-center">
-                    <img src="img/lamb (1).png" alt="" class="w-[90%] h-[90%] object-cover">
-                </div>
-                <h3>Баранина</h3>
-            </div>
-
-            <div class="min-w-[150px] min-h-[45px] flex items-center gap-2 rounded-full shadow-md snap-start bg-white">
-                <div
-                    class="w-[45px] h-[45px] rounded-full m-1 shadow-md overflow-hidden flex items-center justify-center">
-                    <img src="img/chicken.png" alt="" class="w-[90%] h-[90%] object-cover">
-                </div>
-                <h3>Курица</h3>
-            </div>
-
-            <div class="min-w-[150px] min-h-[45px] flex items-center gap-2 rounded-full shadow-md snap-start bg-white">
-                <div class="w-[45px] h-[45px] rounded-full m-1 shadow-md flex items-center justify-center">
-                    <img src="img/256x256.jpg" alt="" class="w-[90%] h-[90%] object-contain">
-                </div>
-                <h3>Конина</h3>
-            </div>
+            
 
         </div>
     </section>
@@ -125,13 +94,11 @@
     <!-- Подробности -->
     
 
-    <!-- <div id="overlay" class="fixed inset-0 bg-black/40  z-40"></div> -->
+    <div id="overlay" class="fixed inset-0 bg-black/40 overflow-scroll  z-40 opacity-0 hidden transition-opacity duration-200 ease-out"></div>
 
     <div id="sheet" class="fixed bottom-0 transition-all ease-in-out duration-300 m-auto left-0 right-0 transform opacity-0 pointer-events-none hidden translate-y-[600px] bg-white rounded-2xl z-50 modal">
 
-        <!-- Handle -->
         <ion-icon name="close-outline" id="close" class="px-5 w-[30px] h-[30px] pt-2"></ion-icon>
-
         <img src="img/rebra.png" alt="" class="w-full h-[190px] object-contain modal-img">
 
         <!-- Контент -->

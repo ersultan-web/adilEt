@@ -8,13 +8,13 @@ options.style.pointerEvents = "none";
 
 contactBtn.addEventListener('click', () => {
     if (options.style.opacity === "0") {
-        // Появление
+
         options.style.opacity = "1";
         options.style.bottom = "-100px";
         options.style.pointerEvents = "auto";
         icon.name = 'chevron-up-outline'
     } else {
-        // Скрытие
+
         options.style.opacity = "0";
         options.style.bottom = "0px";
         options.style.pointerEvents = "none";
@@ -180,17 +180,32 @@ function createProductCard(data) {
     card.addEventListener('click', () => {
         openModal(data)
     })
-    // Вставляем карточку в контейнер #card
     container.appendChild(card);
 }
+let search = document.querySelector("#search")
+const getSearch = search.addEventListener('input', (e) => {
+    console.log(e.target.value);
+
+})
 
 async function init() {
     const ini = await GetInfo();
     if (!ini) return;
-
     ini.forEach(element => {
         createProductCard(element);
-    });
+    })
+    search.addEventListener('input', (e) => {
+        container.innerHTML = ''
+        e.target.value === '' ?
+            ini.forEach(element => {
+                createProductCard(element);
+            }) : ini
+            .filter(element => element.name.replace(/\s+/g, '').toLowerCase().includes(e.target.value))
+            .forEach(element => {
+                createProductCard(element)
+            })
+    })
+
 }
 
 init();
@@ -198,9 +213,9 @@ init();
 
 function openModal(product) {
     const modal = document.querySelector('.modal');
+    const over = document.querySelector('#overlay')
     const phone = "77711592023";
     const message = `Здравствуйте, хочу заказать ${product.name} за ${product.price.toLocaleString('ru-RU')} ₸/кг`;
-    // Наполняем контент
     modal.querySelector("#WhatsApp").href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     modal.querySelector(".modal-img").src = product.img;
     modal.querySelector(".modal-title").innerText = product.name;
@@ -208,16 +223,18 @@ function openModal(product) {
     modal.querySelector(".modal-price").innerText =
         product.price.toLocaleString('ru-RU') + ' ₸ / кг';
 
-    // 1️⃣ Показываем modal
+    over.classList.remove('hidden')
     modal.classList.remove('hidden');
 
-    // 2️⃣ Даём браузеру применить стили
     requestAnimationFrame(() => {
         modal.classList.remove(
             'translate-y-[600px]',
             'opacity-0',
             'pointer-events-none'
         );
+        over.classList.remove('opacity-0')
+
+        over.classList.add('opacity-100')
         modal.classList.add('translate-y-0', 'opacity-100');
     });
 }
@@ -225,15 +242,108 @@ function openModal(product) {
 
 function closeModal() {
     const modal = document.querySelector('.modal');
+    const over = document.querySelector('#overlay')
     modal.classList.remove('translate-y-0', 'opacity-100');
+    over.classList.remove('opacity-100')
+
+    over.classList.add('opacity-0')
     modal.classList.add('translate-y-[600px]', 'opacity-0');
 
     setTimeout(() => {
         modal.classList.add('hidden');
+        over.classList.add('hidden')
     }, 300);
 }
 
 let close = document.getElementById('close')
 close.addEventListener('click', () => {
     closeModal()
+})
+
+const categories = [
+    {
+        id: "all",
+        name: "Все",
+        img: "img/f8e37bf74c633ed8c5fdeec50f00043d-Photoroom.png",
+        imgClass: "w-[90%] h-[90%] object-cover",
+        cardClass: "min-w-[150px]"
+    },
+    {
+        id: "beef",
+        name: "Говядина",
+        img: "img/meat (1).png",
+        imgClass: "w-[90%] h-[90%] object-cover",
+        cardClass: "min-w-[150px]"
+    },
+    {
+        id: "lamb",
+        name: "Баранина",
+        img: "img/lamb (1).png",
+        imgClass: "w-[90%] h-[90%] object-cover",
+        cardClass: "min-w-[150px]"
+    },
+    {
+        id: "chicken",
+        name: "Курица",
+        img: "img/chicken.png",
+        imgClass: "w-[90%] h-[90%] object-cover",
+        cardClass: "min-w-[150px]"
+    },
+    {
+        id: "horse",
+        name: "Конина",
+        img: "img/256x256.jpg",
+        imgClass: "w-[90%] h-[90%] object-contain",
+        cardClass: "min-w-[150px]"
+    },
+    {
+        id: "frozen-food",
+        name: "Полуфабрикаты",
+        img: "img/frozen-food.png",
+        imgClass: "w-[80%] h-[80%] object-contain",
+        cardClass: "min-w-[200px]"
+    }
+];
+
+let cotegor = document.querySelector('#cotegory')
+async function clickCotegory(name) {
+    const getInfo = await GetInfo();
+    if (!getInfo) return;
+
+    container.innerHTML = "";
+
+    let info;
+    if (name === "все") {
+        info = getInfo;
+    } else {
+        info = getInfo.filter(i => i.cotegory.toLowerCase() === name);
+    }
+
+    info.forEach(product => createProductCard(product));
+}
+
+
+categories.forEach(element => {
+    const div = document.createElement("div");
+    div.id = element.id;
+    div.className = `${element.cardClass} min-h-[45px] flex items-center gap-2 rounded-full shadow-md snap-start bg-white transition-all duration-500`;
+    div.innerHTML = `
+    <div class="w-[45px] h-[45px] rounded-full m-1 shadow-md overflow-hidden flex items-center justify-center">
+      <img src="${element.img}" alt="" class="${element.imgClass}">
+    </div>
+    <h3>${element.name}</h3>
+  `;
+
+
+    div.addEventListener('click', () => {
+        // Снимаем подсветку со всех
+        cotegor.querySelectorAll('div').forEach(d => d.classList.remove('bg-yellow-500'));
+
+        // Выделяем текущую
+        div.classList.add('bg-yellow-500');
+
+        clickCotegory(element.name.toLowerCase());
+    });
+
+    cotegor.appendChild(div);
 })
