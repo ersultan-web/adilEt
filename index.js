@@ -168,13 +168,11 @@ function createProductCard(data) {
 }
 let formInput = document.querySelector('#formInput')
 formInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-        e.preventDefault()
-        setTimeout(() => {
-            searchInput.blur();
-        }, 50);
-    }
-
+//     if (e.key === 'Enter' || e.key === 'Search') {
+//     e.preventDefault();
+//     searchInput.blur();
+// }
+    alert(`key: ${e.key}, code: ${e.code}`);
 })
 
 
