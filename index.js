@@ -10,6 +10,17 @@ contactBtn.addEventListener('click', () => {
     icon.name = options.classList.contains('opacity-0') ? 'chevron-down-outline' : 'chevron-up-outline';
 });
 
+document.addEventListener('click', (e) => {
+    // Если клик не внутри options и не на кнопке
+    if (!options.contains(e.target) && e.target !== contactBtn) {
+        options.classList.add('opacity-0');
+        options.classList.add('bottom-[0px]');
+        options.classList.add('pointer-events-none');
+        options.classList.add('bottom-[-100px]')
+        icon.name = options.classList.contains('opacity-0') ? 'chevron-down-outline' : 'chevron-up-outline';
+    }
+});
+
 
 async function GetInfo() {
     try {
@@ -145,10 +156,14 @@ function openModal(product) {
     });
 }
 
+const over = document.querySelector('#overlay')
 
+over.addEventListener('click', () => {
+    closeModal()
+})
 function closeModal() {
     const modal = document.querySelector('.modal');
-    const over = document.querySelector('#overlay')
+    
     modal.classList.remove('translate-y-0', 'opacity-100');
     over.classList.remove('opacity-100')
 
@@ -222,12 +237,12 @@ async function clickCotegory(name) {
     container.innerHTML = "";
 
     getInfo.filter(element => {
-            let search = element.name.replace(/\s+/g, '').toLowerCase().includes(query)
-            let cotegory = cotegoryName === 'все' || element.cotegory.toLowerCase() === cotegoryName
-            return search && cotegory
-        }).forEach(element => {
-            createProductCard(element)
-        })
+        let search = element.name.replace(/\s+/g, '').toLowerCase().includes(query)
+        let cotegory = cotegoryName === 'все' || element.cotegory.toLowerCase() === cotegoryName
+        return search && cotegory
+    }).forEach(element => {
+        createProductCard(element)
+    })
 }
 
 
