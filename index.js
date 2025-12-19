@@ -153,6 +153,7 @@ function openModal(product) {
 
         over.classList.add('opacity-100')
         modal.classList.add('translate-y-0', 'opacity-100');
+        document.body.style.overflow = 'hidden';
     });
 }
 
@@ -173,6 +174,7 @@ function closeModal() {
     setTimeout(() => {
         modal.classList.add('hidden');
         over.classList.add('hidden')
+        document.body.style.overflow = '';
     }, 300);
 }
 
